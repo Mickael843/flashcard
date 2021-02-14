@@ -5,11 +5,13 @@ import com.mikkaeru.api.repository.FlashcardRepository;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class FlashcardRepositoryImpl implements FlashcardRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
