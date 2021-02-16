@@ -1,7 +1,7 @@
-CREATE TABLE flashcard (
+CREATE TABLE IF NOT EXISTS flashcard (
     id bigint NOT NULL,
     back character varying(255) NOT NULL,
-    box integer NOT NULL,
+    flashcard_box integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     external_id uuid NOT NULL,
     front character varying(255) NOT NULL,

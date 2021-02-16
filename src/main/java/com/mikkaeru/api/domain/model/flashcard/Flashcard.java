@@ -31,7 +31,7 @@ public class Flashcard {
 
     @NotNull
     @Enumerated(ORDINAL)
-    @Column(nullable = false)
+    @Column(name = "flashcard_box", nullable = false)
     private Box box;
 
     @NotBlank

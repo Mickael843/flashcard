@@ -15,12 +15,18 @@ public class FlashcardServiceImpl implements FlashcardService {
     @Autowired
     private FlashcardRepository flashcardRepository;
 
+    private static final String NOT_BE_NULL = "Não pode ser nulo!";
+    private static final String INVALID_FIELDS = "Campos inválidos!";
+    private static final String INVALID_EXTERNAL_ID = "O id externo é inválido!";
+    private static final String FLASHCARD_NOT_FOUND = "Flashcard não encontrado!";
+
     @Override
     public Flashcard create(Flashcard flashcard) {
 
         flashcard.setReview(false);
         flashcard.setBox(Box.BOX_ONE);
         flashcard.setCreatedAt(OffsetDateTime.now());
+        flashcard.setNextRevision(OffsetDateTime.now());
 
         return flashcardRepository.save(flashcard);
     }
