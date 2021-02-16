@@ -1,22 +1,25 @@
 package com.mikkaeru.api.anotation.validator;
 
 import com.mikkaeru.api.anotation.UniqueValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+@Component
 public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
 
     private Class<?> klass;
     private String domainAttribute;
 
-    @PersistenceContext
-    private EntityManager manager;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public void initialize(UniqueValue constraintAnnotation) {
@@ -27,10 +30,25 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
 
-        Query query = manager.createQuery("SELECT 1 FROM " + klass.getName() + " WHERE " + domainAttribute + "=:value");
-        query.setParameter("value", value);
+        String[] tmp = klass.getName().split("\\.");
+        String klassName = tmp[tmp.length - 1].toLowerCase(Locale.ROOT);
 
-        List<?> list = query.getResultList();
+        String sql = "SELECT " + domainAttribute + " FROM " + klassName + " WHERE " + domainAttribute + "=" + "'" +value+ "'";
+
+        List<String> list = jdbcTemplate.query(sql, rs -> {
+
+            List<String> listTmp = new ArrayList<>();
+
+            while (rs.next()) {
+
+                var field = rs.getString(domainAttribute);
+
+                listTmp.add(field);
+
+            }
+
+            return listTmp;
+        });
 
         Assert.state(list.size() <= 1, "Foi encontrado mais de um " + klass + " com o atributo " + domainAttribute+" = " + value);
 

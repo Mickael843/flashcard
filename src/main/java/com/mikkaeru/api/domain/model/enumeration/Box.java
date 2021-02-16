@@ -1,5 +1,7 @@
 package com.mikkaeru.api.domain.model.enumeration;
 
+import org.modelmapper.internal.util.Assert;
+
 public enum Box {
 
     BOX_ONE(1),

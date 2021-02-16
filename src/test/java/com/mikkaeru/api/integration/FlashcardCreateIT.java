@@ -4,6 +4,7 @@ import com.mikkaeru.api.domain.model.enumeration.Box;
 import com.mikkaeru.api.helper.IntegrationHelper;
 import com.mikkaeru.api.repository.FlashcardRepository;
 import org.json.JSONObject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ public class FlashcardCreateIT extends IntegrationHelper {
     FlashcardRepository flashcardRepository;
 
     @Test
+    @DisplayName("Caso o payload seja valido retorna status code 201")
     void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
         // Given
         JSONObject payload = new JSONObject();

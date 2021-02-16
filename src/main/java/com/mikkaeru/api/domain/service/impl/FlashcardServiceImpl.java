@@ -1,24 +1,27 @@
 package com.mikkaeru.api.domain.service.impl;
 
+import com.mikkaeru.api.domain.model.enumeration.Box;
 import com.mikkaeru.api.domain.model.flashcard.Flashcard;
 import com.mikkaeru.api.domain.service.FlashcardService;
 import com.mikkaeru.api.repository.FlashcardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
 
 @Service
 public class FlashcardServiceImpl implements FlashcardService {
 
-    private final FlashcardRepository repository;
-
-    FlashcardServiceImpl(FlashcardRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private FlashcardRepository flashcardRepository;
 
     @Override
     public Flashcard create(Flashcard flashcard) {
 
-        repository.create(flashcard);
+        flashcard.setReview(false);
+        flashcard.setBox(Box.BOX_ONE);
+        flashcard.setCreatedAt(OffsetDateTime.now());
 
-        return null;
+        return flashcardRepository.save(flashcard);
     }
 }

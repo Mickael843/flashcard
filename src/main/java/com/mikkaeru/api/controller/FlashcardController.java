@@ -3,6 +3,7 @@ package com.mikkaeru.api.controller;
 import com.mikkaeru.api.domain.model.flashcard.Flashcard;
 import com.mikkaeru.api.domain.service.FlashcardService;
 import com.mikkaeru.api.dto.FlashcardRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 @RequestMapping("/v1")
 public class FlashcardController {
 
+    @Autowired
     private FlashcardService flashcardService;
 
     @PostMapping

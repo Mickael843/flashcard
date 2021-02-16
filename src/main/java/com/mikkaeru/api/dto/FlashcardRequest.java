@@ -8,10 +8,12 @@ import com.mikkaeru.api.domain.model.flashcard.Flashcard;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -21,9 +23,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FlashcardRequest {
-
-    @NotNull
-    private Box box;
 
     @NotBlank
     private String back;
@@ -36,13 +35,9 @@ public class FlashcardRequest {
     private Boolean review;
 
     @NotNull
-    @UniqueValue(domainClass = Flashcard.class, fieldName = "externalId")
+    @UniqueValue(domainClass = Flashcard.class, fieldName = "external_id")
     private UUID externalId;
 
-    @NotNull
-    private OffsetDateTime createdAt;
-
-    private OffsetDateTime updatedAt;
     private OffsetDateTime lastRevision;
     private OffsetDateTime nextRevision;
 
