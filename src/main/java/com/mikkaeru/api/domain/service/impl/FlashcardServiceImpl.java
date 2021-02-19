@@ -27,7 +27,7 @@ public class FlashcardServiceImpl implements FlashcardService {
     public Flashcard create(Flashcard flashcard) {
 
         flashcard.setReview(false);
-        flashcard.setBox(Box.BOX_ONE);
+        flashcard.setBox(Box.ONE);
         flashcard.setCreatedAt(OffsetDateTime.now());
         flashcard.setNextRevision(OffsetDateTime.now());
 

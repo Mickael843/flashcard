@@ -15,45 +15,45 @@ public class BoxTest extends TestHelper {
 
     @ParameterizedTest()
     @MethodSource("provideNextBox")
-    void When_CallMethodNextBox_MUST_ReturnNextBox(Box currentBox, Box expectedBox, int currentBoxNumber) {
+    void When_CallMethodNextBox_MUST_ReturnNextBox(Box currentBox, Box expectedBox, String currentBoxValue) {
 
         // When
         Box returnedBox = Box.nextBox(currentBox);
 
         // Then
         Assertions.assertEquals(expectedBox, returnedBox);
-        Assertions.assertEquals(currentBoxNumber, currentBox.number);
+        Assertions.assertEquals(currentBoxValue, currentBox.value);
     }
 
     @ParameterizedTest()
     @MethodSource("providePreviousBox")
-    void When_CallMethodBackOneBox_MUST_BackToPreviousBox(Box currentBox, Box expectedBox, int currentBoxNumber) {
+    void When_CallMethodBackOneBox_MUST_BackToPreviousBox(Box currentBox, Box expectedBox, String currentBoxValue) {
 
         // When
         Box returnedBox = Box.backOneBox(currentBox);
 
         // Then
         Assertions.assertEquals(expectedBox, returnedBox);
-        Assertions.assertEquals(currentBoxNumber, currentBox.number);
+        Assertions.assertEquals(currentBoxValue, currentBox.value);
     }
 
     private static Stream<Arguments> provideNextBox() {
         return Stream.of(
-                arguments(BOX_ONE, BOX_TWO, 1),
-                arguments(BOX_TWO, BOX_THREE, 2),
-                arguments(BOX_THREE, BOX_FOUR, 3),
-                arguments(BOX_FOUR, BOX_FIVE, 4),
-                arguments(BOX_FIVE, BOX_FIVE, 5)
+                arguments(ONE, TWO, "Box one"),
+                arguments(TWO, THREE, "Box two"),
+                arguments(THREE, FOUR, "Box three"),
+                arguments(FOUR, FIVE, "Box four"),
+                arguments(FIVE, FIVE, "Box five")
         );
     }
 
     private static Stream<Arguments> providePreviousBox() {
         return Stream.of(
-                arguments(BOX_ONE, BOX_ONE, 1),
-                arguments(BOX_TWO, BOX_ONE, 2),
-                arguments(BOX_THREE, BOX_TWO, 3),
-                arguments(BOX_FOUR, BOX_THREE, 4),
-                arguments(BOX_FIVE, BOX_FOUR, 5)
+                arguments(ONE, ONE, "Box one"),
+                arguments(TWO, ONE, "Box two"),
+                arguments(THREE, TWO, "Box three"),
+                arguments(FOUR, THREE, "Box four"),
+                arguments(FIVE, FOUR, "Box five")
         );
     }
 }

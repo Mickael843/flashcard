@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {UniqueValueValidator.class})
 public @interface UniqueValue {
 
-    String message() default "{com.mikkaeru.beanvalidator.uniquevalue}";
+    String message() default "Campo duplicado!";
 
     Class<?>[] groups() default {};
 

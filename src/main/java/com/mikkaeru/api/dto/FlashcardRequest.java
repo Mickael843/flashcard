@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mikkaeru.api.anotation.UniqueValue;
 import com.mikkaeru.api.domain.model.enumeration.Status;
 import com.mikkaeru.api.domain.model.flashcard.Flashcard;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,7 +18,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 public class FlashcardRequest {
 
     @NotBlank
@@ -40,12 +38,17 @@ public class FlashcardRequest {
     private OffsetDateTime lastRevision;
     private OffsetDateTime nextRevision;
 
-    @JsonIgnore
-    PropertyMap<FlashcardRequest, Flashcard> skipFieldsMap;
-
     public Flashcard toModel() {
         ModelMapper mapper = new ModelMapper();
         mapper.addMappings(skipFieldsMap);
         return mapper.map(this, Flashcard.class);
     }
+
+    @JsonIgnore
+    PropertyMap<FlashcardRequest, Flashcard> skipFieldsMap = new PropertyMap<>() {
+        @Override
+        protected void configure() {
+            skip().setId(null);
+        }
+    };
 }

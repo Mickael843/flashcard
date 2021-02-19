@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import static com.mikkaeru.api.domain.model.enumeration.Box.BOX_ONE;
+import static com.mikkaeru.api.domain.model.enumeration.Box.ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -67,7 +67,7 @@ public class FlashcardCreateIT extends IntegrationHelper {
         Flashcard flashcard = flashcardOptional.get();
 
         assertEquals(back, flashcard.getBack());
-        assertEquals(BOX_ONE, flashcard.getBox());
+        assertEquals(ONE, flashcard.getBox());
         assertEquals(front, flashcard.getFront());
         assertEquals(false, flashcard.getReview());
         assertEquals(EXTERNAL_ID, flashcard.getExternalId());

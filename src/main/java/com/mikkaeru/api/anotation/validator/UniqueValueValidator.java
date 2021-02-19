@@ -33,7 +33,7 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
         String[] tmp = klass.getName().split("\\.");
         String klassName = tmp[tmp.length - 1].toLowerCase(Locale.ROOT);
 
-        String sql = "SELECT " + domainAttribute + " FROM " + klassName + " WHERE " + domainAttribute + "=" + "'" +value+ "'";
+        String sql = "SELECT * FROM " + klassName + " WHERE " + domainAttribute + "=" + "'" +value+ "'";
 
         List<String> list = jdbcTemplate.query(sql, rs -> {
 
@@ -50,6 +50,7 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
             return listTmp;
         });
 
+        assert list != null;
         Assert.state(list.size() <= 1, "Foi encontrado mais de um " + klass + " com o atributo " + domainAttribute+" = " + value);
 
         return list.isEmpty();

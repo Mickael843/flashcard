@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import static javax.persistence.EnumType.ORDINAL;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.AUTO;
 
@@ -30,16 +29,17 @@ public class Flashcard {
     private Long id;
 
     @NotNull
-    @Enumerated(ORDINAL)
-    @Column(name = "flashcard_box", nullable = false)
+    @Enumerated(STRING)
+    @Column(name = "flashcard_box", nullable = false, length = 10)
     private Box box;
 
+    @Lob
     @NotBlank
     @Column(nullable = false)
     private String back;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String front;
 
     @Enumerated(STRING)
