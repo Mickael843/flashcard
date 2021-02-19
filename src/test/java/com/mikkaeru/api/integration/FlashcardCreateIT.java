@@ -29,9 +29,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 @ExtendWith(SpringExtension.class)
 public class FlashcardCreateIT extends IntegrationHelper {
 
-    // TODO Tratar ArgumentConversionException
-    // TODO Tratar a seguinte exceção IllegalArgumentException
-
     @Autowired
     FlashcardRepository flashcardRepository;
 
@@ -99,8 +96,6 @@ public class FlashcardCreateIT extends IntegrationHelper {
         String validBack = faker.book().author();
         String validExternalId = UUID.randomUUID().toString();
 
-        String invalidExternalId = "33f7e8f3164fb2ad658a3aba1b0341";
-
         String duplicatedFront = "sentença número 0";
         String duplicatedExternalId = "7fe7db1d-2031-4778-80f5-f8c45f5fd86d";
 
@@ -108,16 +103,13 @@ public class FlashcardCreateIT extends IntegrationHelper {
                 // Cenário do campo FRONT
                 arguments("  ", validBack, validExternalId), // 1
                 arguments(null, validBack, validExternalId), // 2
-                arguments(1234, validBack, validExternalId), // 3
-                arguments(duplicatedFront, validBack, validExternalId), // 4
+                arguments(duplicatedFront, validBack, validExternalId), // 3
                 // Cenário do campo BACK
-                arguments(validFront, "  ", validExternalId), // 5
-                arguments(validFront, null, validExternalId), // 6
-                arguments(validFront, 1234, validExternalId), // 7
+                arguments(validFront, "  ", validExternalId), // 4
+                arguments(validFront, null, validExternalId), // 5
                 // Cenário do campo EXTERNAL_ID
-                arguments(validFront, validBack, null), // 8
-                arguments(validFront, validBack, invalidExternalId), // 9
-                arguments(validFront, validBack, duplicatedExternalId) // 10
+                arguments(validFront, validBack, null), // 6
+                arguments(validFront, validBack, duplicatedExternalId) // 7
         );
     }
 }
