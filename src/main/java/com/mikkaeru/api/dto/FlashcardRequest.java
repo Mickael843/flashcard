@@ -2,6 +2,9 @@ package com.mikkaeru.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mikkaeru.api.anotation.UniqueValue;
+import com.mikkaeru.api.anotation.validator.FlashcardGroupValidator;
+import com.mikkaeru.api.anotation.validator.FlashcardGroupValidator.createValidation;
+import com.mikkaeru.api.anotation.validator.FlashcardGroupValidator.updateValidation;
 import com.mikkaeru.api.domain.model.enumeration.Status;
 import com.mikkaeru.api.domain.model.flashcard.Flashcard;
 import lombok.Getter;
@@ -20,10 +23,10 @@ import java.util.UUID;
 @ToString
 public class FlashcardRequest {
 
-    @NotBlank
+    @NotBlank(groups = {createValidation.class, updateValidation.class})
     private String back;
 
-    @NotBlank
+    @NotBlank(groups = {createValidation.class, updateValidation.class})
     @UniqueValue(domainClass = Flashcard.class, fieldName = "front")
     private String front;
 
@@ -31,7 +34,7 @@ public class FlashcardRequest {
 
     private Boolean review;
 
-    @NotNull
+    @NotNull(groups = createValidation.class)
     @UniqueValue(domainClass = Flashcard.class, fieldName = "external_id")
     private UUID externalId;
 

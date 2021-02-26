@@ -30,7 +30,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class FlashcardCreateIT extends IntegrationHelper {
 
     @Autowired
-    FlashcardRepository flashcardRepository;
+    private FlashcardRepository flashcardRepository;
 
     private static final String ENDPOINT = "/v1/flashcards";
     private static final UUID EXTERNAL_ID = UUID.randomUUID();
